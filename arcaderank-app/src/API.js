@@ -46,15 +46,31 @@ function processTweet(tweet){
   });
 }
 
-function compileMatches(){
+function sortMatch(m){
+  var names = [m.user, m.opponent];
+  names.sort();
+  var s = Object.assign({}, m);
+  s.key = names.join(', ');
+  return s;
+}
 
+API.compileMatches = function(){
+  var matchups = {};
+  matches.forEach(function (m){
+    var game = matchups[m.game] || {};
+    var sm = sortMatch(m);
+    var mu = game[sm.key] || [];
+    mu.push(sm);
+    game[sm.key] = mu;
+    matchups[m.game] = game;
+  })
+  return matchups;
 }
 
 API.init = function(rawData){
   console.log(rawData);
   blacklist = rawData.blacklist;
   rawData.tweets.forEach(processTweet);
-  compileMatches();
 }
 
 API.all = function(){

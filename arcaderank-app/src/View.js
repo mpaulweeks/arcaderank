@@ -11,6 +11,7 @@ class MainView extends Component {
       <div>
         <div>Hello world</div>
         <div>{JSON.stringify(all_tweets)}</div>
+        <div>{JSON.stringify(API.compileMatches())}</div>
       </div>
     )
   }
