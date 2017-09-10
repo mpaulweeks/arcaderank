@@ -3,18 +3,20 @@ import ReactDOM from 'react-dom';
 
 class MainView extends Component {
   render() {
+    var {
+      all_tweets
+    } = this.props;
     return (
-      <div>Hello world</div>
+      <div>
+        <div>Hello world</div>
+        <div>{JSON.stringify(all_tweets)}</div>
+      </div>
     )
   }
 }
 
 const View = {};
 View.initApp = function(){
-  ReactDOM.render(
-    <Loading />,
-    document.getElementById('root')
-  );
   fetch('https://s3.amazonaws.com/arcaderank/all_tweets.json')
     .then(function(response) {
       if (response.status >= 400) {
@@ -28,7 +30,9 @@ View.initApp = function(){
     })
     .then(function(data) {
       ReactDOM.render(
-        <MainView data=data/>,
+        <MainView
+          all_tweets={data}
+        />,
         document.getElementById('root')
       );
     });
