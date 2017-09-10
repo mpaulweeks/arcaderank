@@ -31,8 +31,8 @@ class Game extends Component {
               <th>Player2</th>
               <th>Set Wins</th>
               <th>Set Losses</th>
-              <th>Total Wins</th>
-              <th>Total Losses</th>
+              <th>Round Wins</th>
+              <th>Round Losses</th>
             </tr>
           </thead>
           <tbody>

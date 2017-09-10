@@ -1,8 +1,25 @@
 body {
   margin: 0;
-  padding: 0;
+  padding: 10px;
   font-family: sans-serif;
 }
 div {
   margin: 0px auto;
+}
+table {
+  border-collapse: collapse;
+  border: 2px solid black;
+}
+table tr {
+  border-bottom: 2px solid #aaaaaa;
+}
+table tr:last-child {
+  border-bottom: 2px solid black;
+}
+table th, table td {
+  border-right: 2px solid #aaaaaa;
+  padding: 5px;
+}
+table th:last-child, table td:last-child {
+  border-right: 2px solid black;
 }

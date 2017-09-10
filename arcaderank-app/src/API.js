@@ -37,7 +37,7 @@ function processTweet(tweet){
   });
   matches.push({
     id: tweet.id,
-    user: tweet.user,
+    user: '@' + tweet.user,
     opponent: opponent,
     game: game,
     score: score,
