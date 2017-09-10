@@ -9,10 +9,8 @@ class Matchup extends Component {
       <tr>
         <td>{data.names[0]}</td>
         <td>{data.names[1]}</td>
-        <td>{data.setWin}</td>
-        <td>{data.setLoss}</td>
-        <td>{data.wins}</td>
-        <td>{data.losses}</td>
+        <td>{data.setWin}-{data.setLoss}</td>
+        <td>{data.wins}-{data.losses}</td>
       </tr>
     )
   }
@@ -27,12 +25,10 @@ class Game extends Component {
         <table>
           <thead>
             <tr>
-              <th>Player1</th>
-              <th>Player2</th>
-              <th>Set Wins</th>
-              <th>Set Losses</th>
-              <th>Round Wins</th>
-              <th>Round Losses</th>
+              <th>Player 1</th>
+              <th>Player 2</th>
+              <th>Sets</th>
+              <th>Rounds</th>
             </tr>
           </thead>
           <tbody>

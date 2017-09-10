@@ -7,7 +7,10 @@ const HANDLE = "@8BitDojoArcade".toLowerCase();
 
 
 function processTweet(tweet){
-  if (blacklist.includes(tweet.user)){
+  if ((blacklist.users || []).includes(tweet.user)){
+    return;
+  }
+  if ((blacklist.tweets || []).includes(tweet.id)){
     return;
   }
   if (!tweet.text.toLowerCase().startsWith(HANDLE)){

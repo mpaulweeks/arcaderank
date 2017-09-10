@@ -64,7 +64,7 @@ def load_data():
         with open(DATA_PATH, 'r') as file:
             rawData = json.load(file)
             data = {
-                'blacklist': rawData.get('blacklist', []),
+                'blacklist': rawData.get('blacklist', {}),
                 'tweets_by_id': {
                     st.id: st for st in [
                         SimpleTweet.from_json(tj) for tj in (
