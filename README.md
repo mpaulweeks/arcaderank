@@ -2,6 +2,8 @@
 
 Python webapp/scraper for tracking arcade rankings (via tweets)
 
+![@8BitDojoArcade](https://twitter.com/8BitDojoArcade)
+
 ## Dependencies
 ![twitterscraper](https://github.com/taspinar/twitterscraper)
 
