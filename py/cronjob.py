@@ -57,12 +57,12 @@ class SimpleTweet(dict):
         )
 
 
-def run():
+def load_data():
     try:
-        download_s3()
         with open(DATA_PATH, 'r') as file:
+            print 'loading tweets from file'
             existing_tweets = json.load(file)
-            print 'fetching tweets'
+            print 'fetching tweets from Twitter'
             data = {
                 t.id: t for t in [
                     SimpleTweet.from_json(j) for j in existing_tweets
@@ -70,16 +70,32 @@ def run():
             }
     except Exception as e:
         print 'EXCEPTION:', e
-        data = {}
+        data = None
+    return data
+
+
+def run():
+    data = load_data()
+    if not data:
+        download_s3()
+        data = load_data()
+    if not data:
+        print 'something went horribly wrong'
     scraper_tweets = query_tweets('@mpaulweeks', 100)
     new_tweets_by_id = {
         t.id: SimpleTweet.from_scraper(t) for t in scraper_tweets
     }
+    old_count = len(data)
     data.update(new_tweets_by_id)
-    print 'saving tweets locally'
-    with open(DATA_PATH, 'w') as output:
-        json.dump(data.values(), output)
-    upload_s3()
+    new_count = len(data)
+    print 'updates: %d' % (new_count - old_count)
+    if new_count == old_count:
+        print 'nothing new, skipping save'
+    else:
+        print 'saving tweets locally'
+        with open(DATA_PATH, 'w') as output:
+            json.dump(data.values(), output)
+        upload_s3()
 
 
 if __name__ == "__main__":
