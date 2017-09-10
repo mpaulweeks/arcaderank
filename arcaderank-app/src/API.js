@@ -67,9 +67,9 @@ function sortMatch(m){
 }
 
 API.compileMatches = function(){
-  var matchups = {};
+  var games = {};
   matches.forEach(function (m){
-    var game = matchups[m.game] || {};
+    var game = games[m.game] || {};
     var sm = sortMatch(m);
     var mu = game[sm.key];
     if (!mu){
@@ -81,9 +81,21 @@ API.compileMatches = function(){
       mu.setLoss += sm.setLoss;
     }
     game[sm.key] = mu;
-    matchups[m.game] = game;
-  })
-  return matchups;
+    games[m.game] = game;
+  });
+  var result = [];
+  for (var gkey in games){
+    var gameData = games[gkey];
+    var matchups = [];
+    for (var mukey in gameData){
+      matchups.push(gameData[mukey]);
+    }
+    result.push({
+      key: gkey,
+      matchups: matchups,
+    });
+  }
+  return result;
 }
 
 API.init = function(rawData){
