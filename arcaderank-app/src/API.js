@@ -49,8 +49,20 @@ function processTweet(tweet){
 function sortMatch(m){
   var names = [m.user, m.opponent];
   names.sort();
-  var s = Object.assign({}, m);
-  s.key = names.join(', ');
+  var s = {
+    game: m.game,
+    key: names.join(', '),
+    names: names,
+  };
+  if (names[0] === m.user){
+    s.wins = m.score[0];
+    s.losses = m.score[1];
+  } else {
+    s.wins = m.score[1];
+    s.losses = m.score[0];
+  }
+  s.setWin = s.wins > s.losses ? 1 : 0;
+  s.setLoss = s.wins < s.losses ? 1 : 0;
   return s;
 }
 
@@ -59,8 +71,15 @@ API.compileMatches = function(){
   matches.forEach(function (m){
     var game = matchups[m.game] || {};
     var sm = sortMatch(m);
-    var mu = game[sm.key] || [];
-    mu.push(sm);
+    var mu = game[sm.key];
+    if (!mu){
+      mu = sm;
+    } else {
+      mu.wins += sm.wins;
+      mu.losses += sm.losses;
+      mu.setWin += sm.setWin;
+      mu.setLoss += sm.setLoss;
+    }
     game[sm.key] = mu;
     matchups[m.game] = game;
   })
