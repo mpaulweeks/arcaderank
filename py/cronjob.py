@@ -61,13 +61,17 @@ def load_data():
     try:
         print 'loading tweets from file'
         with open(DATA_PATH, 'r') as file:
-            existing_tweets = json.load(file)
-        print 'fetching tweets from Twitter'
-        data = {
-            t.id: t for t in [
-                SimpleTweet.from_json(j) for j in existing_tweets
-            ]
-        }
+            rawData = json.load(file)
+            data = {
+                'blacklist': rawData.get('blacklist', []),
+                'tweets_by_id': {
+                    st.id: st for st in [
+                        SimpleTweet.from_json(tj) for tj in (
+                            rawData.get('tweets', [])
+                        )
+                    ]
+                }
+            }
     except Exception as e:
         print 'EXCEPTION:', e
         data = None
@@ -80,21 +84,28 @@ def run():
         download_s3()
         data = load_data()
     if not data:
-        print 'something went horribly wrong'
+        raise Exception('something went horribly wrong')
+    print 'fetching tweets from Twitter'
     scraper_tweets = query_tweets('@mpaulweeks', 100)
     new_tweets_by_id = {
-        t.id: SimpleTweet.from_scraper(t) for t in scraper_tweets
+        st.id: st for st in [
+            SimpleTweet.from_scraper(rt) for rt in scraper_tweets
+        ]
     }
-    old_count = len(data)
-    data.update(new_tweets_by_id)
-    new_count = len(data)
+    old_count = len(data['tweets_by_id'])
+    data['tweets_by_id'].update(new_tweets_by_id)
+    new_count = len(data['tweets_by_id'])
     print 'updates: %d' % (new_count - old_count)
     if new_count == old_count:
         print 'nothing new, skipping save'
     else:
         print 'saving tweets locally'
+        out = {
+            'blacklist': data['blacklist'],
+            'tweets': data['tweets_by_id'].values(),
+        }
         with open(DATA_PATH, 'w') as output:
-            json.dump(data.values(), output)
+            json.dump(out, output)
         upload_s3()
 
 
