@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import { Tweet } from 'react-twitter-widgets'
 import API from './API';
 
 class Matchup extends Component {
@@ -47,9 +48,8 @@ class MainView extends Component {
     var data = API.compileMatches();
     return (
       <div>
+        <Tweet tweetId='906987816541925377'/>
         <div>
-          Tweet at <a target="blank" href="https://twitter.com/8BitDojoArcade">@8BitDojoArcade</a> to record your set.
-          <br/>
           Refresh this page in 1-2 minutes and results should show up.
         </div>
         {data.map(function(game) {

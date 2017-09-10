@@ -102,7 +102,6 @@ API.compileMatches = function(){
 }
 
 API.init = function(rawData){
-  console.log(rawData);
   blacklist = rawData.blacklist;
   rawData.tweets.forEach(processTweet);
 }
