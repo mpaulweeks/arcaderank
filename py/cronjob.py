@@ -6,6 +6,7 @@ from twitterscraper import query_tweets
 
 DATA_PATH = 'data.json'
 S3_PATH = 'all_tweets.json'
+TWITTER_QUERY = '@8BitDojoArcade'
 
 
 def _connect_to_bucket():
@@ -86,7 +87,7 @@ def run():
     if not data:
         raise Exception('something went horribly wrong')
     print 'fetching tweets from Twitter'
-    scraper_tweets = query_tweets('@mpaulweeks', 100)
+    scraper_tweets = query_tweets(TWITTER_QUERY, 100)
     new_tweets_by_id = {
         st.id: st for st in [
             SimpleTweet.from_scraper(rt) for rt in scraper_tweets
