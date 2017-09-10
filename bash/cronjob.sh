@@ -1,2 +1,2 @@
 source venv/bin/activate
-python -m py.cronjob
+env $(cat .env | xargs) python -m py.cronjob
