@@ -59,15 +59,15 @@ class SimpleTweet(dict):
 
 def load_data():
     try:
+        print 'loading tweets from file'
         with open(DATA_PATH, 'r') as file:
-            print 'loading tweets from file'
             existing_tweets = json.load(file)
-            print 'fetching tweets from Twitter'
-            data = {
-                t.id: t for t in [
-                    SimpleTweet.from_json(j) for j in existing_tweets
-                ]
-            }
+        print 'fetching tweets from Twitter'
+        data = {
+            t.id: t for t in [
+                SimpleTweet.from_json(j) for j in existing_tweets
+            ]
+        }
     except Exception as e:
         print 'EXCEPTION:', e
         data = None
