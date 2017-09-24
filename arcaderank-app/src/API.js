@@ -1,7 +1,7 @@
 
 const API = {};
-const matches = [];
-var blacklist = [];
+var matches; // list
+var blacklist; // object
 
 const HANDLE = "@8BitDojoArcade".toLowerCase();
 
@@ -103,6 +103,7 @@ API.compileMatches = function(){
 
 API.init = function(rawData){
   blacklist = rawData.blacklist;
+  matches = [];
   rawData.tweets.forEach(processTweet);
 }
 

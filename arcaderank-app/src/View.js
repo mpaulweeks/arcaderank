@@ -45,14 +45,15 @@ class Game extends Component {
 
 class MainView extends Component {
   render() {
-    var data = API.compileMatches();
+    API.init(this.props.data);
+    var games = API.compileMatches();
     return (
       <div>
         <Tweet tweetId='906987816541925377'/>
         <div>
-          Refresh this page in 1-2 minutes and results should show up.
+          This page automatically refreshes every 30 seconds. Tweeted results should show up here within a minute.
         </div>
-        {data.map(function(game) {
+        {games.map(function(game) {
           return <Game key={game.key} data={game} />
         })}
       </div>
@@ -64,15 +65,17 @@ const View = {};
 View.initApp = function(){
   API.fetchData()
     .then(function(data) {
-      API.init(data);
       ReactDOM.render(
-        <MainView />,
+        <MainView data={data}/>,
         document.getElementById('root')
       );
     })
     .catch(function (error){
       // todo: display message about 'failed to load'
     })
+    .then(function(){
+      setTimeout(View.initApp, 30000);
+    });
 };
 
 export default View;
