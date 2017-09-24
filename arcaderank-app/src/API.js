@@ -110,4 +110,34 @@ API.all = function(){
   return matches;
 }
 
+API.fetchData = function(){
+  const urls = [
+    'http://static.mpaulweeks.com/8bit/data.json',
+    'https://s3.amazonaws.com/arcaderank/all_tweets.json',
+  ];
+  var urlIndex = 0;
+  function tryFetch(){
+    var url = urls[urlIndex];
+    return fetch(url)
+      .then(function(response) {
+        if(!response.ok) {
+          throw new Error('Failed to get: ' + url);
+        }
+        else {
+          return response.json();
+        }
+      })
+      .catch(function(error) {
+        console.log(error);
+        urlIndex += 1;
+        if (urlIndex < urls.length){
+          return tryFetch();
+        } else {
+          throw error;
+        }
+      })
+  }
+  return tryFetch();
+}
+
 export default API;
