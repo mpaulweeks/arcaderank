@@ -4,7 +4,7 @@ import os
 import boto3
 from twitterscraper import query_tweets
 
-DATA_PATH = 'data.json'
+DATA_PATH = 'db/data.json'
 S3_PATH = 'all_tweets.json'
 TWITTER_QUERY = '@8BitDojoArcade'
 
