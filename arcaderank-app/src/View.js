@@ -8,10 +8,17 @@ class Matchup extends Component {
     var { data } = this.props;
     return (
       <tr>
-        <td>{data.names[0]}</td>
-        <td>{data.names[1]}</td>
+        {data.names.map(function(n, i){
+          if (n[0] === '@'){
+            var withoutAt = n.substring(1);
+            var twitterUrl = `https://twitter.com/${withoutAt}`;
+            return <td key={i}><a href={twitterUrl}>{withoutAt}</a></td>
+          } else {
+            return <td key={i}>{n}</td>
+          }
+        })}
         <td>{data.setWin}-{data.setLoss}</td>
-        <td>{data.wins}-{data.losses}</td>
+        <td>{data.win}-{data.loss}</td>
       </tr>
     )
   }
@@ -34,7 +41,7 @@ class Game extends Component {
           </thead>
           <tbody>
             {data.matchups.map(function(mu) {
-              return <Matchup key={mu.key} data={mu} />
+              return <Matchup key={mu.key} data={API.sortMatchup(mu)} />
             })}
           </tbody>
         </table>
