@@ -9,12 +9,21 @@ Python webapp/scraper for tracking arcade rankings (via tweets)
 
 ## Installation
 
-### Setup virtualenv
+### Website
+
+Static React files compiled via npm. Deploy with:
 ```
-./bash/setup_venv.sh
+./bash/deploy.sh
 ```
 
-### Setup env
+### Tweet Scraper
+
+#### Setup virtualenv
+```
+./install/setup_venv.sh
+```
+
+#### Setup env
 
 Expected `.env` fields
 ```
@@ -24,7 +33,7 @@ S3_REGION_NAME
 S3_BUCKET_NAME
 ```
 
-### Setup crontab
+#### Setup crontab
 ```
 # Example of job definition:
 # .---------------- minute (0 - 59)
@@ -37,3 +46,7 @@ S3_BUCKET_NAME
 
 * * * * * ec2-user cd /home/ec2-user/arcaderank && ./bash/cronjob.sh
 ```
+
+#### Setup server
+
+Serves JSON data. See `install/nginx.conf`
