@@ -40,8 +40,8 @@ class Game extends Component {
             </tr>
           </thead>
           <tbody>
-            {data.matchups.map(function(mu) {
-              return <Matchup key={mu.key} data={API.sortMatchup(mu)} />
+            {API.sortMatchups(data.matchups).map(function(mu) {
+              return <Matchup key={mu.key} data={mu} />
             })}
           </tbody>
         </table>

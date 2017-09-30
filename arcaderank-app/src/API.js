@@ -111,7 +111,7 @@ API.compileMatches = function(){
   return result;
 }
 
-API.sortMatchup = function(matchup){
+function sortMatchupNames(matchup){
   const isBackwards = (
     matchup.setWin < matchup.setLoss ||
     (matchup.setWin === matchup.setLoss && matchup.win < matchup.loss)
@@ -129,6 +129,21 @@ API.sortMatchup = function(matchup){
   } else {
     return matchup;
   }
+}
+
+API.sortMatchups = function(matchups){
+  let sorted = [];
+  matchups.forEach(function (m){
+    sorted.push(sortMatchupNames(m));
+  });
+  function compare(a,b) {
+    if (a.setWin * 10000 + a.win < b.setWin * 10000 + b.win)
+      return -1;
+    if (a.setWin * 10000 + a.win > b.setWin * 10000 + b.win)
+      return 1;
+    return 0;
+  }
+  return sorted.sort(compare).reverse();
 }
 
 API.init = function(rawData){
