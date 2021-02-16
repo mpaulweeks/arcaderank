@@ -1,5 +1,7 @@
 # arcaderank
 
+## Shut down twitter + server on 2021/02/16 due to lack of use
+
 Python webapp/scraper for tracking arcade rankings (via tweets)
 
 ![@8BitDojoArcade](https://twitter.com/8BitDojoArcade)
