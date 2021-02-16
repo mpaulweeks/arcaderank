@@ -1,6 +1,6 @@
-# arcaderank
+*Shut down twitter + server on 2021/02/16 due to lack of use*
 
-## Shut down twitter + server on 2021/02/16 due to lack of use
+# arcaderank
 
 Python webapp/scraper for tracking arcade rankings (via tweets)
 
