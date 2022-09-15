@@ -4,7 +4,7 @@
   "private": true,
   "homepage": ".",
   "dependencies": {
-    "bootstrap": "^3.3.7",
+    "bootstrap": "^3.4.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-twitter-widgets": "^1.5.1"
